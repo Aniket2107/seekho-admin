@@ -1,8 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../styles/sidebar.css";
 
-const AdLeft = () => {
+const AdLeft: React.FC = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    return <Redirect to="/login" />;
+  };
+
   return (
     <div className="wrapper">
       <div className="sidebar">
@@ -15,23 +20,28 @@ const AdLeft = () => {
           </li>
           <li>
             <Link to="/manage-vocabs">
-              <i className="fas fa-user"></i>Vocabs
+              <i className="fas fa-play-circle"></i>Vocabs
             </Link>
           </li>
           <li>
-            <Link to="/add-language">
-              <i className="fas fa-address-card"></i>Languages
-            </Link>
-          </li>
-          <li>
-            <Link to="#">
-              <i className="fas fa-project-diagram"></i>Questions
+            <Link to="/manage-languages">
+              <i className="fas fa-language"></i>Languages
             </Link>
           </li>
           <li>
             <Link to="#">
-              <i className="fas fa-blog"></i>Users
+              <i className="fas fa-book"></i>Questions
             </Link>
+          </li>
+          <li>
+            <Link to="#">
+              <i className="fas fa-user-circle"></i>Users
+            </Link>
+          </li>
+          <li>
+            <a href="" onClick={handleLogout}>
+              <i className="fas fa-sign-out-alt"></i>Logout
+            </a>
           </li>
         </ul>
         <div className="social_media">

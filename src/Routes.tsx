@@ -7,11 +7,16 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import AddLanguage from "./pages/AddLanguage";
 import AddVocab from "./pages/AddVocab";
+import Addquestion from "./pages/Addquestion";
+import EditVocab from "./pages/EditVocab";
 import NotFound from "./pages/NotFound";
+
+import ManageVocabs from "./pages/ManageVocabs";
+import Managequestion from "./pages/Managequestion";
+import Managelanguages from "./pages/Managelanguages";
 
 //Helpers
 import PrivateRoute from "./private/PrivateRoute";
-import ManageVocabs from "./pages/ManageVocabs";
 
 const Routes = () => {
   return (
@@ -22,7 +27,20 @@ const Routes = () => {
         <PrivateRoute path="/dashboard" exact component={Dashboard} />
         <PrivateRoute path="/manage-vocabs" exact component={ManageVocabs} />
         <PrivateRoute path="/add-vocab" exact component={AddVocab} />
+        <PrivateRoute path="/edit-vocab/:vocabId" exact component={EditVocab} />
         <PrivateRoute path="/add-language" exact component={AddLanguage} />
+        <PrivateRoute
+          path="/manage-languages"
+          exact
+          component={Managelanguages}
+        />
+        <PrivateRoute path="/add-question" exact component={Addquestion} />
+        <PrivateRoute
+          path="/manage-questions"
+          exact
+          component={Managequestion}
+        />
+
         <Route path="*" exact component={NotFound} />
       </Switch>
     </BrowserRouter>

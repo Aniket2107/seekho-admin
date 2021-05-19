@@ -4,10 +4,7 @@ import axios from "axios";
 import { API } from "../backend";
 import AdLeft from "../components/AdLeft";
 
-//FORM data
-//Input handling:--
-
-const AddVocab = () => {
+const AddVocab: React.FC = () => {
   const [values, setValues] = useState({
     language: "",
     level: "",
@@ -18,20 +15,19 @@ const AddVocab = () => {
     languageInLanguage: "",
     audio: "",
     image: "",
-    formdata: null,
   });
   const [dpLang, setDpLang] = useState<string[]>([]);
   const [dpLevels, setDpLevels] = useState<string[]>([]);
 
-  const preload = () => {
-    //
-  };
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState("");
+  const [success, setSuccess] = useState("");
 
-  useEffect(() => {
+  const preload = () => {
     //Fetching languages
     axios({
       method: "GET",
-      url: `${API}`,
+      url: `${API}lang/`,
     })
       .then((res) => {
         setDpLang(res.data.data);
@@ -39,25 +35,33 @@ const AddVocab = () => {
       .catch((err) => console.log(err));
 
     //Fetching levels
-    axios({
-      method: "GET",
-      url: `${API}`,
-    })
-      .then((res) => {
-        setDpLevels(res.data.data);
+    if (values.language !== "") {
+      axios({
+        method: "GET",
+        url: `${API}lang/level/${values.language}`,
       })
-      .catch((err) => console.log(err));
+        .then((res) => {
+          setDpLevels(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  useEffect(() => {
+    preload();
 
     return () => {
       setDpLang([]);
       setDpLevels([]);
     };
-  }, []);
+  }, [values.language]);
 
   const handleInput =
     (name: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const val =
-        name === "image" || name === "audio" ? e.target.files : e.target.value;
+      const val: any =
+        name === "image" || name === "audio"
+          ? e.target.files![0]
+          : e.target.value;
 
       setValues({
         ...values,
@@ -67,40 +71,81 @@ const AddVocab = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
+    setLoading("Loading...");
+
+    const formData = new FormData();
+
+    formData.append("image", values.image);
+    formData.append("audio", values.audio);
+    formData.append("language", values.language);
+    formData.append("level", values.level);
+    formData.append("languageInHindi", values.languageInHindi);
+    formData.append("languageInEnglish", values.languageInEnglish);
+    formData.append("languageInLanguage", values.languageInLanguage);
+    formData.append("hindiInHindi", values.hindiInHindi);
+    formData.append("englishInEnglish", values.englishInEnglish);
+
+    axios({
+      method: "POST",
+      url: `${API}vocab/`,
+      data: formData,
+    })
+      .then((res) => {
+        setLoading("");
+        setSuccess("Vocab added");
+      })
+      .catch((err) => {
+        setLoading("");
+        setError(
+          err.response
+            ? err.response.data.msg
+            : "Something went wrong, Try again"
+        );
+      });
   };
 
-  const createProductForm = (): JSX.Element => {
+  const VocabForm = (): JSX.Element => {
     return (
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="selectLang">Select Language</label>
+          <label htmlFor="selectLang">Select Language </label>
           <select
+            className="form-select"
             id="selectLang"
-            className="custom-select"
-            style={{ width: "100%" }}
-            onChange={(e) => setValues({ ...values })}
+            name="language"
+            defaultValue={values.language}
+            onChange={(e) => setValues({ ...values, language: e.target.value })}
           >
-            <option disabled>Language</option>
-            <option value="1">Gujarati</option>
-            <option value="1">Marathi</option>
-            <option value="2">Telugu</option>
-            <option value="3">Punjabi</option>
+            <option value="null">Select Langauge</option>
+            {dpLang.length > 0 &&
+              dpLang.map((lang) => {
+                return (
+                  <option key={lang} value={lang}>
+                    {lang}
+                  </option>
+                );
+              })}
           </select>
         </div>
 
         <div className="form-group">
           <label htmlFor="selectLevel">Select Level</label>
           <select
+            className="form-select"
             id="selectLevel"
-            className="custom-select"
-            style={{ width: "100%" }}
+            name="level"
+            defaultValue={values.level}
+            onChange={(e) => setValues({ ...values, level: e.target.value })}
           >
-            <option disabled>Level</option>
-            <option value="1">LEVEL I</option>
-            <option value="1">LEVEL II</option>
-            <option value="2">LEVEL III</option>
-            <option value="3">LEVEL IV</option>
+            <option value="null">Select Level</option>
+            {dpLevels.length > 0 &&
+              dpLevels.map((lvl) => {
+                return (
+                  <option key={lvl} value={lvl}>
+                    {lvl}
+                  </option>
+                );
+              })}
           </select>
         </div>
 
@@ -180,7 +225,7 @@ const AddVocab = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="formGroupExampleInput2">LanguageInEnglish</label>
+          <label htmlFor="formGroupExampleInput2">LanguageInLanguage</label>
           <input
             type="text"
             className="form-control"
@@ -192,6 +237,9 @@ const AddVocab = () => {
             required
           />
         </div>
+        {error && <h4 className="text-danger">{error}</h4>}
+        {loading && <h4 className="text-warning">{loading}</h4>}
+        {success && <h4 className="text-success ">{success}</h4>}
         <button className="btn btn-md btn-success mb-3">Submit</button>
       </form>
     );
@@ -203,7 +251,7 @@ const AddVocab = () => {
       <div style={{ marginLeft: "220px" }}>
         <h1 className="mt-4">Add vocab</h1>
         <div className="text-dark">
-          <div style={{ width: "60%" }}>{createProductForm()}</div>
+          <div style={{ width: "60%" }}>{VocabForm()}</div>
         </div>
       </div>
     </div>

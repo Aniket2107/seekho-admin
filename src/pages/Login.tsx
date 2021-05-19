@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
+import Navbar from "../components/Navbar";
+
 import { API } from "../backend";
 import { isAuthenticated } from "../private/helper";
 
@@ -61,10 +63,15 @@ const Login = (): JSX.Element => {
     }
   };
 
+  const loggedIn = localStorage.getItem("jwt");
+  if (loggedIn) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <div className="container" style={{ width: "50%" }}>
       {preformRedirect()}
-      <h1 className="text-primary text-center bg-warning">Seekho India</h1>
+      <Navbar />
       <div style={{ marginTop: "15%" }}>
         <h3>Admin Login</h3>
         <form onSubmit={handleLogin}>

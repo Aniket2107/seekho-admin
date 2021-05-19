@@ -1,10 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
 import "../styles/landing.css";
 
 const LandingPage = (): JSX.Element => {
   return (
     <div>
-      <h1>Landing page</h1>
+      <div className="container">
+        <Navbar />
+      </div>
+      <div className="container">
+        <div className="row custom-section d-flex align-items-center">
+          <div className="col-12 col-lg-4">
+            <h2>SeeKho</h2>
+            <h3>Start Your Journey</h3>
+            <p>A Way To Connect To Different Cultures</p>
+            <Link to="/login">GET STARTED</Link>
+          </div>
+          <div className="col-12 col-lg-8">
+            <img src="assets/images/mainbenner.png" alt="Team process banner" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -8,8 +8,10 @@ import { API } from "../backend";
 
 interface vocabType {
   _id: string;
-  audio: string;
-  image: string;
+  audio?: string;
+  image?: string;
+  language: string;
+  level: string;
   languageInLanguage: string;
   languageInHindi: string;
   languageInEnglish: string;
@@ -19,13 +21,13 @@ interface vocabType {
 
 const ManageVocabs: React.FC = (): JSX.Element => {
   const [vocab, setVocab] = useState<vocabType[]>([]);
-  const [error, setError] = useState<string>("");
+
   const [search, setSearch] = useState<string>("");
 
   const preload = () => {
     axios({
       method: "GET",
-      url: `${API}vocab/language/english`,
+      url: `${API}vocab/`,
     })
       .then((res) => {
         // console.log(res.data);
@@ -52,11 +54,11 @@ const ManageVocabs: React.FC = (): JSX.Element => {
         preload();
       })
       .catch((err) => {
-        setError("Something went wrong, Try reloading the page");
+        console.log(err);
       });
   };
 
-  const searchBar = () => {
+  const searchBar = (): JSX.Element => {
     return (
       <div className="form-group w-100 d-flex justify-content-center align-items-center">
         <input
@@ -75,7 +77,7 @@ const ManageVocabs: React.FC = (): JSX.Element => {
     );
   };
 
-  const filteredVocabs = vocab.filter((quote) => {
+  const filteredVocabs: Array<vocabType> = vocab.filter((quote): boolean => {
     return quote.englishInEnglish.toLowerCase().includes(search.toLowerCase());
   });
 
@@ -85,21 +87,25 @@ const ManageVocabs: React.FC = (): JSX.Element => {
         <thead className="thead-dark">
           <tr>
             <th>#</th>
+            <th>Language</th>
+            <th>Level</th>
             <th>Hindi</th>
             <th>English</th>
-            <th>LHindi</th>
-            <th>LEnglish</th>
-            <th>LLanguage</th>
+            <th>LangHindi</th>
+            <th>LangEnglish</th>
+            <th>LangLang</th>
             <th>Image</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody className="text-dark ">
-          {vocab.length > 0 &&
+        <tbody>
+          {vocab.length > 0 ? (
             filteredVocabs.map((word, idx) => {
               return (
                 <tr key={word._id}>
                   <td>{idx + 1}</td>
+                  <td>{word.language}</td>
+                  <td>{word.level}</td>
                   <td>{word.hindiInHindi}</td>
                   <td>{word.englishInEnglish}</td>
                   <td>{word.languageInHindi}</td>
@@ -108,19 +114,18 @@ const ManageVocabs: React.FC = (): JSX.Element => {
                   <td>
                     <img
                       src={word.image}
+                      alt="img"
                       className="img-thumbnail"
                       style={{ width: "45px" }}
                     />
                   </td>
                   <td>
-                    <Link
-                      to={`/admin/product/update/${word._id}`}
-                      className="text-info"
-                    >
+                    <Link to={`/edit-vocab/${word._id}`} className="text-info">
                       Edit
                     </Link>
                     |
                     <a
+                      href="#"
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         removeVocab(word._id);
@@ -132,8 +137,10 @@ const ManageVocabs: React.FC = (): JSX.Element => {
                   </td>
                 </tr>
               );
-            })}
-          {vocab.length === 0 && <tr>No vocabs found</tr>}
+            })
+          ) : (
+            <tr>No vocab found</tr>
+          )}
         </tbody>
       </table>
     );
@@ -142,7 +149,7 @@ const ManageVocabs: React.FC = (): JSX.Element => {
   return (
     <div>
       <AdLeft />
-      <div style={{ marginLeft: "220px", fontFamily: "sans-serif" }}>
+      <div style={{ marginLeft: "220px" }}>
         <h1 className="text-center">Manage Vocabs</h1>
         <Link
           to="/add-vocab"
@@ -152,9 +159,7 @@ const ManageVocabs: React.FC = (): JSX.Element => {
           Add Vocab
         </Link>
         {searchBar()}
-
-        {error && <h4 className="text-danger">{error}</h4>}
-        <div className="text-dark">{vocabTable()}</div>
+        <div>{vocabTable()}</div>
       </div>
     </div>
   );
