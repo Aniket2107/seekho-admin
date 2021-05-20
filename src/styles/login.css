@@ -1,0 +1,9 @@
+.loginpg {
+  margin-top: 10%;
+  width: 250px;
+}
+.container .mainbenner img {
+  max-width: 650px;
+  max-height: 450px;
+  float: right;
+}

@@ -1,16 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,300&display=swap");
+.navbar-expand-lg {
+  flex-direction: row;
+}
 
-header {
+body {
   font-family: "Poppins", sans-serif;
 }
 
 .head__custom-nav .navbar-brand img {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
 }
 .head__custom-nav .navbar-brand span {
-  font-weight: bolder;
-  font-size: 44px;
+  font-weight: 700;
+  font-size: 38px;
   margin-left: 10px;
 }
 .head__custom-nav button {
@@ -20,10 +23,10 @@ header {
   width: 45px;
 }
 .head__custom-nav #navbarNav .navbar-nav .nav-item .nav-link {
-  color: rgb(0, 0, 0);
-  font-size: 22px;
+  font-size: larger;
+  color: #000;
   font-weight: 400;
-  padding: 8px 35px;
+  padding: 8px 15px;
   white-space: nowrap;
   transition: 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
@@ -45,7 +48,7 @@ header {
 }
 .custom-section .col-lg-4 h2 {
   font-weight: 700;
-  font-size: 65px;
+  font-size: 63px;
   color: #000;
   margin-bottom: 0;
   line-height: 1;
@@ -53,13 +56,13 @@ header {
 }
 .custom-section .col-lg-4 h3 {
   font-weight: 300;
-  font-size: 53px;
+  font-size: 60px;
   color: #000;
   line-height: 1;
 }
 .custom-section .col-lg-4 p {
   color: #000;
-  font-size: 17px;
+  font-size: 18px;
   margin-top: 30px;
 }
 .custom-section .col-lg-4 a {
@@ -81,7 +84,7 @@ header {
   width: 100%;
   position: absolute;
   top: -17rem;
-  right: -2%;
+  right: -1%;
 }
 @media screen and (max-width: 991.98px) {
   .custom-section .col-lg-8 img {
@@ -97,3 +100,5 @@ header {
   top: -13.5rem;
   right: 2.9rem;
 }
+
+/*# sourceMappingURL=style.css.map */
