@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import "../styles/landing.css";
+import Navbar from "../../components/Navbar";
+import "../../styles/landing.css";
 
 const LandingPage = (): JSX.Element => {
   return (

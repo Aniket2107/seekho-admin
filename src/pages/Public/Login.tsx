@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import "../../styles/login.css";
 
-import "../styles/login.css";
-
-import Navbar from "../components/Navbar";
-
-import { API } from "../backend";
-import { isAuthenticated } from "../private/helper";
+import { API } from "../../backend";
+import { isAuthenticated } from "../../private/helper";
+import Navbar from "../../components/Navbar";
 
 const Login = (): JSX.Element => {
   //States
@@ -65,13 +63,8 @@ const Login = (): JSX.Element => {
     }
   };
 
-  const loggedIn = localStorage.getItem("jwt");
-  if (loggedIn) {
-    return <Redirect to="/dashboard" />;
-  }
-
   return (
-    <div className="container" style={{ width: "50%" }}>
+    <div className="container">
       {preformRedirect()}
       <Navbar />
       <div className="mainbenner">

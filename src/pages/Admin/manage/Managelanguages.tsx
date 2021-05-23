@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
-import { API } from "../backend";
+import { API } from "../../../backend";
 
-import AdLeft from "../components/AdLeft";
+import AdLeft from "../../../components/AdLeft";
 
 interface dataType {
   _id: string;
@@ -49,15 +49,17 @@ const Managelanguages = () => {
                   <summary style={{ cursor: "pointer", color: "#4b4276" }}>
                     <strong>{dt.language}</strong>
                   </summary>
-                  <ul>
-                    {dt.levels.length > 0 ? (
-                      dt.levels.map((lvl, idx) => {
-                        return <li key={idx + Math.random()}>{lvl}</li>;
-                      })
-                    ) : (
-                      <h5>Levels not found</h5>
-                    )}
-                  </ul>
+                  <div className="container m-2">
+                    <ul>
+                      {dt.levels.length > 0 ? (
+                        dt.levels.map((lvl, idx) => {
+                          return <li key={idx + Math.random()}>{lvl}</li>;
+                        })
+                      ) : (
+                        <h5>Levels not found</h5>
+                      )}
+                    </ul>
+                  </div>
                 </details>
               </div>
             );

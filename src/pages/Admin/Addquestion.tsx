@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import AdLeft from "../components/AdLeft";
+import AdLeft from "../../components/AdLeft";
 
 import axios from "axios";
-import { API } from "../backend";
+import { API } from "../../backend";
 
 const Addquestion: React.FC = (): JSX.Element => {
   const [values, setValues] = useState({
@@ -113,7 +113,7 @@ const Addquestion: React.FC = (): JSX.Element => {
         <div className="form-group">
           <label htmlFor="selectLang">Select Language </label>
           <select
-            className="form-control"
+            className="form-select"
             id="selectLang"
             name="language"
             defaultValue={values.language}
@@ -134,7 +134,7 @@ const Addquestion: React.FC = (): JSX.Element => {
         <div className="form-group">
           <label htmlFor="selectLevel">Select Level</label>
           <select
-            className="form-control"
+            className="form-select"
             id="selectLevel"
             name="level"
             defaultValue={values.level}

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 import axios from "axios";
-import { API } from "../backend";
+import { API } from "../../backend";
 
-import AdLeft from "../components/AdLeft";
+import AdLeft from "../../components/AdLeft";
 
 interface MatchParams {
   vocabId: string;

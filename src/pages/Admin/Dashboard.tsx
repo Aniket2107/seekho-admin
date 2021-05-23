@@ -1,6 +1,6 @@
 import React from "react";
-import AdLeft from "../components/AdLeft";
-import AdRight from "../components/AdRight";
+import AdLeft from "../../components/AdLeft";
+import AdRight from "../../components/AdRight";
 
 const Dashboard = (): JSX.Element => {
   return (

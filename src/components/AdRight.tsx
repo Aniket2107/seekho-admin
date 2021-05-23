@@ -1,7 +1,6 @@
 import React from "react";
 
 const AdRight = () => {
-  //TODO:
   return (
     <div className="card">
       <h4 className="card-header">Admin Information</h4>
@@ -12,7 +11,7 @@ const AdRight = () => {
         </li>
         <li className="list-group-item">
           <span className="badge badge-success mr-2">Email:</span>
-          {"admin@seekhoindia.in"}
+          {"admin@seekho.in"}
         </li>
         <li className="list-group-item">
           <span className="badge badge-pill badge-danger">Admin area</span>

@@ -11,7 +11,7 @@ const AdLeft: React.FC = () => {
   return (
     <div className="wrapper">
       <div className="sidebar">
-        <h2>Seekho India</h2>
+        <h2>Seekho.in</h2>
         <ul>
           <li>
             <Link to="/dashboard">
@@ -29,13 +29,18 @@ const AdLeft: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="#">
+            <Link to="/manage-questions">
               <i className="fas fa-book"></i>Questions
             </Link>
           </li>
           <li>
-            <Link to="#">
+            <Link to="/manage-users">
               <i className="fas fa-user-circle"></i>Users
+            </Link>
+          </li>
+          <li>
+            <Link to="/feedbacks">
+              <i className="far fa-comment-alt mr-2"></i>Feedbacks
             </Link>
           </li>
           <li>
@@ -45,15 +50,18 @@ const AdLeft: React.FC = () => {
           </li>
         </ul>
         <div className="social_media">
-          <Link to="#">
-            <i className="fab fa-facebook-f"></i>
-          </Link>
-          <Link to="#">
-            <i className="fab fa-twitter"></i>
-          </Link>
-          <Link to="#">
+          <a
+            href="https://github.com/Aniket2107/seekho-backend"
+            target="_blank"
+          >
+            <i className="fab fa-github"></i>
+          </a>
+          <a href="https://instagram.com/aniket.ts" target="_blank">
             <i className="fab fa-instagram"></i>
-          </Link>
+          </a>
+          <a href="https://github.com/Aniket2107/seekho-admin" target="_blank">
+            <i className="fab fa-github"></i>
+          </a>
         </div>
       </div>
     </div>

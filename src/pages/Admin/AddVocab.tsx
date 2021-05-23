@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
-import { API } from "../backend";
-import AdLeft from "../components/AdLeft";
+import { API } from "../../backend";
+import AdLeft from "../../components/AdLeft";
 
 const AddVocab: React.FC = () => {
   const [values, setValues] = useState({
