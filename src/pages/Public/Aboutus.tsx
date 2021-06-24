@@ -5,7 +5,7 @@ const Aboutus = (): JSX.Element => {
   return (
     <div className="container">
       <Navbar />
-      <div className="row" style={{ marginTop: "50px" }}>
+      <div className="row" style={{ marginTop: "120px" }}>
         <div className="col-lg-6 col-12 col-md-6">
           <img
             src="/assets/images/aboutus.png"

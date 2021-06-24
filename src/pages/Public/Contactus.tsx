@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API } from "../../backend";
 
+
 import Navbar from "../../components/Navbar";
 
 const Contactus = () => {
@@ -140,7 +141,8 @@ const Contactus = () => {
   return (
     <div className="container">
       <Navbar />
-      <div className="row bg-white" style={{ padding: "5%" }}>
+      <div className="row " style={{ padding: "1%"  , marginTop: '50px'}}>
+        
         <div className="col-lg-6 col-md-6">
           <img
             src="assets/images/contactus.png"

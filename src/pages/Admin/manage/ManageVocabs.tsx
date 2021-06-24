@@ -40,6 +40,7 @@ const ManageVocabs: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     preload();
+
     return () => {
       setVocab([]);
     };
