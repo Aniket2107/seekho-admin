@@ -19,6 +19,7 @@ interface questionType {
 
 const Managequestion: React.FC = (): JSX.Element => {
   const [question, setQuestion] = useState<questionType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [search, setSearch] = useState<string>("");
 
@@ -30,9 +31,11 @@ const Managequestion: React.FC = (): JSX.Element => {
       .then((res) => {
         // console.log(res.data);
         setQuestion(res.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
   useEffect(() => {
@@ -117,7 +120,6 @@ const Managequestion: React.FC = (): JSX.Element => {
                     </Link>
                     |
                     <a
-                      href="#"
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         deleteQuestion(word._id);
@@ -141,18 +143,29 @@ const Managequestion: React.FC = (): JSX.Element => {
   return (
     <div>
       <AdLeft />
-      <div style={{ marginLeft: "220px" }}>
-        <h1 className="text-center">Manage Questions</h1>
-        <Link
-          to="/add-question"
-          style={{ float: "right", marginRight: "30px" }}
-          className="btn btn-md btn-danger"
+
+      {loading ? (
+        <div
+          className="spinner-border text-primary loading_spinner"
+          role="status"
+          style={{ position: "absolute", left: "50%", top: "50%" }}
         >
-          Add Question
-        </Link>
-        {searchBar()}
-        <div>{questionTable()}</div>
-      </div>
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+        <div style={{ marginLeft: "220px" }}>
+          <h1 className="text-center">Manage Questions</h1>
+          <Link
+            to="/add-question"
+            style={{ float: "right", marginRight: "30px" }}
+            className="btn btn-md btn-danger"
+          >
+            Add Question
+          </Link>
+          {searchBar()}
+          <div>{questionTable()}</div>
+        </div>
+      )}
     </div>
   );
 };

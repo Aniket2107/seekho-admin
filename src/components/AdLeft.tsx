@@ -44,7 +44,7 @@ const AdLeft: React.FC = () => {
             </Link>
           </li>
           <li>
-            <a href="" onClick={handleLogout}>
+            <a href="/" onClick={handleLogout}>
               <i className="fas fa-sign-out-alt"></i>Logout
             </a>
           </li>
@@ -53,13 +53,22 @@ const AdLeft: React.FC = () => {
           <a
             href="https://github.com/Aniket2107/seekho-backend"
             target="_blank"
+            rel="noreferrer"
           >
             <i className="fab fa-github"></i>
           </a>
-          <a href="https://instagram.com/aniket.ts" target="_blank">
-            <i className="fab fa-instagram"></i>
+          <a
+            href="https://github.com/Aniket2107/seekho-app"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="fab fa-github"></i>
           </a>
-          <a href="https://github.com/Aniket2107/seekho-admin" target="_blank">
+          <a
+            href="https://github.com/Aniket2107/seekho-admin"
+            target="_blank"
+            rel="noreferrer"
+          >
             <i className="fab fa-github"></i>
           </a>
         </div>

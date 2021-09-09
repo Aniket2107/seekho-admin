@@ -20,6 +20,7 @@ interface userType {
 
 const ManageUser: React.FC = (): JSX.Element => {
   const [users, setUsers] = useState<userType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [search, setSearch] = useState<string>("");
 
@@ -30,9 +31,11 @@ const ManageUser: React.FC = (): JSX.Element => {
     })
       .then((res) => {
         setUsers(res.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
   useEffect(() => {
@@ -87,10 +90,8 @@ const ManageUser: React.FC = (): JSX.Element => {
                   <td>{idx + 1}</td>
                   <td>{word.name}</td>
                   <td>{word.email}</td>
-                  <td>{word.age}</td>
-                  <td>
-                    {word.city},{word.country}
-                  </td>
+                  <td>{word.age ? word.age : "_"}</td>
+                  <td>{word.city ? `${word.city},${word.country}` : "_"}</td>
                   <td style={{ overflow: "auto" }}>
                     {word.points.length > 0 &&
                       word.points.map((pt) => {
@@ -118,12 +119,23 @@ const ManageUser: React.FC = (): JSX.Element => {
   return (
     <div>
       <AdLeft />
-      <div style={{ marginLeft: "220px" }}>
-        <h1 className="text-center">Manage Users</h1>
 
-        {searchBar()}
-        <div>{UserTable()}</div>
-      </div>
+      {loading ? (
+        <div
+          className="spinner-border text-primary loading_spinner"
+          role="status"
+          style={{ position: "absolute", left: "50%", top: "50%" }}
+        >
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+        <div style={{ marginLeft: "220px" }}>
+          <h1 className="text-center">Manage Users</h1>
+
+          {searchBar()}
+          <div>{UserTable()}</div>
+        </div>
+      )}
     </div>
   );
 };

@@ -21,6 +21,7 @@ interface vocabType {
 
 const ManageVocabs: React.FC = (): JSX.Element => {
   const [vocab, setVocab] = useState<vocabType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [search, setSearch] = useState<string>("");
 
@@ -32,9 +33,11 @@ const ManageVocabs: React.FC = (): JSX.Element => {
       .then((res) => {
         // console.log(res.data);
         setVocab(res.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
 
@@ -101,7 +104,7 @@ const ManageVocabs: React.FC = (): JSX.Element => {
         </thead>
         <tbody>
           {vocab.length > 0 ? (
-            filteredVocabs.map((word, idx) => {
+            filteredVocabs?.map((word, idx) => {
               return (
                 <tr key={word._id}>
                   <td>{idx + 1}</td>
@@ -126,7 +129,6 @@ const ManageVocabs: React.FC = (): JSX.Element => {
                     </Link>
                     |
                     <a
-                      href="#"
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         removeVocab(word._id);
@@ -150,18 +152,28 @@ const ManageVocabs: React.FC = (): JSX.Element => {
   return (
     <div>
       <AdLeft />
-      <div style={{ marginLeft: "220px" }}>
-        <h1 className="text-center">Manage Vocabs</h1>
-        <Link
-          to="/add-vocab"
-          style={{ float: "right", marginRight: "30px" }}
-          className="btn btn-md btn-danger"
+      {loading ? (
+        <div
+          className="spinner-border text-primary loading_spinner"
+          role="status"
+          style={{ position: "absolute", left: "50%", top: "50%" }}
         >
-          Add Vocab
-        </Link>
-        {searchBar()}
-        <div>{vocabTable()}</div>
-      </div>
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+        <div style={{ marginLeft: "220px" }}>
+          <h1 className="text-center">Manage Vocabs</h1>
+          <Link
+            to="/add-vocab"
+            style={{ float: "right", marginRight: "30px" }}
+            className="btn btn-md btn-danger"
+          >
+            Add Vocab
+          </Link>
+          {searchBar()}
+          <div>{vocabTable()}</div>
+        </div>
+      )}
     </div>
   );
 };

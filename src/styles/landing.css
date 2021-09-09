@@ -38,6 +38,12 @@ body {
   width: inherit;
   padding: 40px 0;
 }
+
+.blur {
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(100px);
+}
+
 @media screen and (max-width: 991.98px) {
   .custom-section {
     flex-direction: column-reverse;

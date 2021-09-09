@@ -9,7 +9,7 @@ const Aboutus = (): JSX.Element => {
         <div className="col-lg-6 col-12 col-md-6">
           <img
             src="/assets/images/aboutus.png"
-            alt="about image"
+            alt="about"
             width="500"
             height="350"
           />

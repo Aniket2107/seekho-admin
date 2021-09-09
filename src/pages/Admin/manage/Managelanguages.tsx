@@ -14,6 +14,7 @@ interface dataType {
 
 const Managelanguages = () => {
   const [data, setData] = useState<dataType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const preload = () => {
     axios({
@@ -21,10 +22,14 @@ const Managelanguages = () => {
       url: `${API}lang/all`,
     })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setData(res.data.data);
+        setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -74,17 +79,27 @@ const Managelanguages = () => {
   return (
     <div>
       <AdLeft />
-      <div style={{ marginLeft: "220px" }}>
-        <h1 className="ml-4">Manage Language & Levels</h1>
-        <Link
-          to="/add-language"
-          style={{ float: "right", marginRight: "30px" }}
-          className="btn btn-md btn-danger"
+      {loading ? (
+        <div
+          className="spinner-border text-primary loading_spinner"
+          role="status"
+          style={{ position: "absolute", left: "50%", top: "50%" }}
         >
-          Add Language
-        </Link>
-        <div style={{ width: "70%", marginTop: "3%" }}>{dataTable()}</div>
-      </div>
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+        <div style={{ marginLeft: "220px" }}>
+          <h1 className="ml-4">Manage Language & Levels</h1>
+          <Link
+            to="/add-language"
+            style={{ float: "right", marginRight: "30px" }}
+            className="btn btn-md btn-danger"
+          >
+            Add Language
+          </Link>
+          <div style={{ width: "70%", marginTop: "3%" }}>{dataTable()}</div>
+        </div>
+      )}
     </div>
   );
 };
